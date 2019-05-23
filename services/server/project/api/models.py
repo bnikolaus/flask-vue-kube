@@ -6,9 +6,9 @@ from sqlalchemy.sql import func
 from project import db
 
 
-class Book(db.Model):
+class Task(db.Model):
 
-    __tablename__ = 'books'
+    __tablename__ = 'Tasks'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255), nullable=False)

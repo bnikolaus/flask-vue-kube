@@ -2,15 +2,15 @@ import os
 
 from flask import Blueprint, jsonify, request
 
-from project.api.models import Book
+from project.api.models import Task
 from project import db
 
 
-books_blueprint = Blueprint('books', __name__)
+Tasks_blueprint = Blueprint('Tasks', __name__)
 
 
-@books_blueprint.route('/books', methods=['GET', 'POST'])
-def all_books():
+@Tasks_blueprint.route('/Tasks', methods=['GET', 'POST'])
+def all_Tasks():
     response_object = {
         'status': 'success',
         'container_id': os.uname()[1]
@@ -20,15 +20,15 @@ def all_books():
         title = post_data.get('title')
         author = post_data.get('author')
         read = post_data.get('read')
-        db.session.add(Book(title=title, author=author, read=read))
+        db.session.add(Task(title=title, author=author, read=read))
         db.session.commit()
-        response_object['message'] = 'Book added!'
+        response_object['message'] = 'Task added!'
     else:
-        response_object['books'] = [book.to_json() for book in Book.query.all()]
+        response_object['Tasks'] = [Task.to_json() for Task in Task.query.all()]
     return jsonify(response_object)
 
 
-@books_blueprint.route('/books/ping', methods=['GET'])
+@Tasks_blueprint.route('/Tasks/ping', methods=['GET'])
 def ping():
     return jsonify({
         'status': 'success',
@@ -37,24 +37,24 @@ def ping():
     })
 
 
-@books_blueprint.route('/books/<book_id>', methods=['PUT', 'DELETE'])
-def single_book(book_id):
+@Tasks_blueprint.route('/Tasks/<Task_id>', methods=['PUT', 'DELETE'])
+def single_Task(Task_id):
     response_object = {
       'status': 'success',
       'container_id': os.uname()[1]
     }
-    book = Book.query.filter_by(id=book_id).first()
+    Task = Task.query.filter_by(id=Task_id).first()
     if request.method == 'PUT':
         post_data = request.get_json()
-        book.title = post_data.get('title')
-        book.author = post_data.get('author')
-        book.read = post_data.get('read')
+        Task.title = post_data.get('title')
+        Task.author = post_data.get('author')
+        Task.read = post_data.get('read')
         db.session.commit()
-        response_object['message'] = 'Book updated!'
+        response_object['message'] = 'Task updated!'
     if request.method == 'DELETE':
-        db.session.delete(book)
+        db.session.delete(Task)
         db.session.commit()
-        response_object['message'] = 'Book removed!'
+        response_object['message'] = 'Task removed!'
     return jsonify(response_object)
 
 
