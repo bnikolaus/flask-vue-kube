@@ -1,7 +1,7 @@
 from flask.cli import FlaskGroup
 
 from project import create_app, db
-from project.api.models import Book
+from project.api.models import Task
 
 
 app = create_app()
@@ -18,17 +18,17 @@ def recreate_db():
 @cli.command('seed_db')
 def seed_db():
     """Seeds the database."""
-    db.session.add(Book(
+    db.session.add(Task(
         title='On the Road',
         author='Jack Kerouac',
         read=True
     ))
-    db.session.add(Book(
+    db.session.add(Task(
         title='Harry Potter and the Philosopher\'s Stone',
         author='J. K. Rowling',
         read=False
     ))
-    db.session.add(Book(
+    db.session.add(Task(
         title='Green Eggs and Ham',
         author='Dr. Seuss',
         read=True
