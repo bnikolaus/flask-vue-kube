@@ -1,0 +1,17 @@
+get task 
+---
+tags:
+  - tasks 
+produces:
+  - application/json
+parameters:
+  - in: path
+    name: task_id
+    description: ID of the Task to get
+    type: integer
+    required: true
+responses:
+  200:
+    description: OK
+    schema:
+      type: string

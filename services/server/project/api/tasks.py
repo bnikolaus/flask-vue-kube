@@ -4,18 +4,16 @@ from flask import Blueprint, jsonify, request
 
 from project.api.models import Task
 from project import db
-
+from flasgger import swag_from
 
 tasks_blueprint = Blueprint('tasks', __name__)
 
-
 @tasks_blueprint.route('/tasks', methods=['GET', 'POST'])
+@swag_from('tasks.yml')
 def all_tasks():
+    """ 
     """
-    responses:
-      200:
-        description: A list of tasks 
-    """
+    
     response_object = {
         'status': 'success',
         'container_id': os.uname()[1]
@@ -33,17 +31,22 @@ def all_tasks():
     return jsonify(response_object)
 
 
-@tasks_blueprint.route('/tasks/ping', methods=['GET'])
-def ping():
+@tasks_blueprint.route('/health', methods=['GET'])
+@swag_from('health.yml')
+def health():
+    """
+    """
     return jsonify({
         'status': 'success',
-        'message': 'pong!',
+        'message': 'ok!',
         'container_id': os.uname()[1]
     })
 
 
 @tasks_blueprint.route('/tasks/<task_id>', methods=['PUT', 'DELETE'])
 def single_task(task_id):
+    """
+    """
     response_object = {
       'status': 'success',
       'container_id': os.uname()[1]

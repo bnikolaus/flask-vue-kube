@@ -1,0 +1,11 @@
+Get health
+---
+tags:
+  - health 
+produces:
+  - application/json
+responses:
+  200:
+    description: OK
+    schema:
+      type: string
