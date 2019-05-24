@@ -11,16 +11,21 @@ tasks_blueprint = Blueprint('tasks', __name__)
 
 @tasks_blueprint.route('/tasks', methods=['GET', 'POST'])
 def all_tasks():
+    """
+    responses:
+      200:
+        description: A list of tasks 
+    """
     response_object = {
         'status': 'success',
         'container_id': os.uname()[1]
     }
     if request.method == 'POST':
         post_data = request.get_json()
-        title = post_data.get('title')
+        description = post_data.get('description')
         author = post_data.get('author')
         read = post_data.get('read')
-        db.session.add(task(title=title, author=author, read=read))
+        db.session.add(Task(description=description, author=author, read=read))
         db.session.commit()
         response_object['message'] = 'task added!'
     else:
@@ -46,7 +51,7 @@ def single_task(task_id):
     task = task.query.filter_by(id=task_id).first()
     if request.method == 'PUT':
         post_data = request.get_json()
-        task.title = post_data.get('title')
+        task.description = post_data.get('description')
         task.author = post_data.get('author')
         task.read = post_data.get('read')
         db.session.commit()

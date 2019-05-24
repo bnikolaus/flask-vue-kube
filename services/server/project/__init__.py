@@ -1,9 +1,10 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
+from flasgger import Swagger
 
 
 # instantiate the extensions
@@ -18,6 +19,9 @@ def create_app(script_info=None):
 
     # enable CORS
     CORS(app)
+
+    # flasgger
+    swagger = Swagger(app)
 
     # set config
     app_settings = os.getenv('APP_SETTINGS')

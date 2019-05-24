@@ -19,17 +19,17 @@ def recreate_db():
 def seed_db():
     """Seeds the database."""
     db.session.add(Task(
-        title='On the Road',
+        description='On the Road',
         author='Jack Kerouac',
         read=True
     ))
     db.session.add(Task(
-        title='Harry Potter and the Philosopher\'s Stone',
+        description='Harry Potter and the Philosopher\'s Stone',
         author='J. K. Rowling',
         read=False
     ))
     db.session.add(Task(
-        title='Green Eggs and Ham',
+        description='Green Eggs and Ham',
         author='Dr. Seuss',
         read=True
     ))

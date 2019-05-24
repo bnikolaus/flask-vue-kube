@@ -10,7 +10,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Title</th>
+              <th scope="col">Description</th>
               <th scope="col">Author</th>
               <th scope="col">Read?</th>
               <th></th>
@@ -18,7 +18,7 @@
           </thead>
           <tbody>
             <tr v-for="(task, index) in tasks" :key="index">
-              <td>{{ task.title }}</td>
+              <td>{{ task.description }}</td>
               <td>{{ task.author }}</td>
               <td>
                 <span v-if="task.read">Yes</span>
@@ -46,17 +46,17 @@
     </div>
     <b-modal ref="addTaskModal"
              id="task-modal"
-             title="Add a new task"
+             description="Add a new task"
              hide-footer>
       <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-      <b-form-group id="form-title-group"
-                    label="Title:"
-                    label-for="form-title-input">
-          <b-form-input id="form-title-input"
+      <b-form-group id="form-description-group"
+                    label="Description:"
+                    label-for="form-description-input">
+          <b-form-input id="form-description-input"
                         type="text"
-                        v-model="addTaskForm.title"
+                        v-model="addTaskForm.description"
                         required
-                        placeholder="Enter title">
+                        placeholder="Enter description">
           </b-form-input>
         </b-form-group>
         <b-form-group id="form-author-group"
@@ -80,17 +80,17 @@
     </b-modal>
     <b-modal ref="editTaskModal"
              id="task-update-modal"
-             title="Update"
+             description="Update"
              hide-footer>
       <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
-      <b-form-group id="form-title-edit-group"
-                    label="Title:"
-                    label-for="form-title-edit-input">
-          <b-form-input id="form-title-edit-input"
+      <b-form-group id="form-description-edit-group"
+                    label="Description:"
+                    label-for="form-description-edit-input">
+          <b-form-input id="form-description-edit-input"
                         type="text"
-                        v-model="editForm.title"
+                        v-model="editForm.description"
                         required
-                        placeholder="Enter title">
+                        placeholder="Enter description">
           </b-form-input>
         </b-form-group>
         <b-form-group id="form-author-edit-group"
@@ -124,13 +124,13 @@ export default {
     return {
       tasks: [],
       addTaskForm: {
-        title: '',
+        description: '',
         author: '',
         read: [],
       },
       editForm: {
         id: '',
-        title: '',
+        description: '',
         author: '',
         read: [],
       },
@@ -197,11 +197,11 @@ export default {
         });
     },
     initForm() {
-      this.addTaskForm.title = '';
+      this.addTaskForm.description = '';
       this.addTaskForm.author = '';
       this.addTaskForm.read = [];
       this.editForm.id = '';
-      this.editForm.title = '';
+      this.editForm.description = '';
       this.editForm.author = '';
       this.editForm.read = [];
     },
@@ -211,7 +211,7 @@ export default {
       let read = false;
       if (this.addTaskForm.read[0]) read = true;
       const payload = {
-        title: this.addTaskForm.title,
+        description: this.addTaskForm.description,
         author: this.addTaskForm.author,
         read, // property shorthand
       };
@@ -224,7 +224,7 @@ export default {
       let read = false;
       if (this.editForm.read[0]) read = true;
       const payload = {
-        title: this.editForm.title,
+        description: this.editForm.description,
         author: this.editForm.author,
         read,
       };
