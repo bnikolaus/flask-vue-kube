@@ -21,9 +21,9 @@ def all_tasks():
     if request.method == 'POST':
         post_data = request.get_json()
         description = post_data.get('description')
-        author = post_data.get('author')
-        read = post_data.get('read')
-        db.session.add(Task(description=description, author=author, read=read))
+        team = post_data.get('team')
+        planned = post_data.get('planned')
+        db.session.add(Task(description=description, team=team, planned=planned))
         db.session.commit()
         response_object['message'] = 'task added!'
     else:
@@ -55,8 +55,8 @@ def single_task(task_id):
     if request.method == 'PUT':
         post_data = request.get_json()
         task.description = post_data.get('description')
-        task.author = post_data.get('author')
-        task.read = post_data.get('read')
+        task.team = post_data.get('team')
+        task.planned = post_data.get('planned')
         db.session.commit()
         response_object['message'] = 'task updated!'
     if request.method == 'DELETE':

@@ -19,19 +19,19 @@ def recreate_db():
 def seed_db():
     """Seeds the database."""
     db.session.add(Task(
-        description='On the Road',
-        author='Jack Kerouac',
-        read=True
+        description='Can you please restart our application in dev?',
+        team='MMX',
+        planned=True
     ))
     db.session.add(Task(
-        description='Harry Potter and the Philosopher\'s Stone',
-        author='J. K. Rowling',
-        read=False
+        description='How can I get access to my services in production',
+        team='LPM',
+        planned=False
     ))
     db.session.add(Task(
-        description='Green Eggs and Ham',
-        author='Dr. Seuss',
-        read=True
+        description='Can you please Google this for me',
+        team='SPIL',
+        planned=True
     ))
     db.session.commit()
 

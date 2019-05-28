@@ -12,18 +12,20 @@ class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.String(255), nullable=False)
-    author = db.Column(db.String(255), nullable=False)
-    read = db.Column(db.Boolean(), default=False, nullable=False)
+    team = db.Column(db.String(255), nullable=False)
+    planned = db.Column(db.Boolean(), default=False, nullable=False)
 
-    def __init__(self, description, author, read):
+    def __init__(self, description, team, planned, type):
         self.description = description
-        self.author = author
-        self.read = read
+        self.team = team
+        self.planned = planned
+        self.type = type
 
     def to_json(self):
         return {
             'id': self.id,
             'description': self.description,
-            'author': self.author,
-            'read': self.read
+            'team': self.team,
+            'planned': self.planned,
+            'type': self.type
         }

@@ -11,17 +11,17 @@
           <thead>
             <tr>
               <th scope="col">Description</th>
-              <th scope="col">Author</th>
-              <th scope="col">Read?</th>
+              <th scope="col">Team</th>
+              <th scope="col">Planned</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(task, index) in tasks" :key="index">
               <td>{{ task.description }}</td>
-              <td>{{ task.author }}</td>
+              <td>{{ task.team }}</td>
               <td>
-                <span v-if="task.read">Yes</span>
+                <span v-if="task.planned">Yes</span>
                 <span v-else>No</span>
               </td>
               <td>
@@ -59,19 +59,19 @@
                         placeholder="Enter description">
           </b-form-input>
         </b-form-group>
-        <b-form-group id="form-author-group"
-                      label="Author:"
-                      label-for="form-author-input">
-            <b-form-input id="form-author-input"
+        <b-form-group id="form-team-group"
+                      label="Team:"
+                      label-for="form-team-input">
+            <b-form-input id="form-team-input"
                           type="text"
-                          v-model="addTaskForm.author"
+                          v-model="addTaskForm.team"
                           required
-                          placeholder="Enter author">
+                          placeholder="Enter team">
             </b-form-input>
           </b-form-group>
-        <b-form-group id="form-read-group">
-          <b-form-checkbox-group v-model="addTaskForm.read" id="form-checks">
-            <b-form-checkbox value="true">Read?</b-form-checkbox>
+        <b-form-group id="form-planned-group">
+          <b-form-checkbox-group v-model="addTaskForm.planned" id="form-checks">
+            <b-form-checkbox value="true">Planned</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
         <b-button type="submit" variant="primary">Submit</b-button>
@@ -93,18 +93,18 @@
                         placeholder="Enter description">
           </b-form-input>
         </b-form-group>
-        <b-form-group id="form-author-edit-group"
+        <b-form-group id="form-team-edit-group"
                       label="Author:"
-                      label-for="form-author-edit-input">
-            <b-form-input id="form-author-edit-input"
+                      label-for="form-team-edit-input">
+            <b-form-input id="form-team-edit-input"
                           type="text"
-                          v-model="editForm.author"
+                          v-model="editForm.team"
                           required
-                          placeholder="Enter author">
+                          placeholder="Enter team">
             </b-form-input>
           </b-form-group>
-        <b-form-group id="form-read-edit-group">
-          <b-form-checkbox-group v-model="editForm.read" id="form-checks">
+        <b-form-group id="form-planned-edit-group">
+          <b-form-checkbox-group v-model="editForm.planned" id="form-checks">
             <b-form-checkbox value="true">Read?</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
@@ -125,14 +125,14 @@ export default {
       tasks: [],
       addTaskForm: {
         description: '',
-        author: '',
-        read: [],
+        team: '',
+        planned: [],
       },
       editForm: {
         id: '',
         description: '',
-        author: '',
-        read: [],
+        team: '',
+        planned: [],
       },
       message: '',
       showMessage: false,
@@ -198,22 +198,22 @@ export default {
     },
     initForm() {
       this.addTaskForm.description = '';
-      this.addTaskForm.author = '';
-      this.addTaskForm.read = [];
+      this.addTaskForm.team = '';
+      this.addTaskForm.planned = [];
       this.editForm.id = '';
       this.editForm.description = '';
-      this.editForm.author = '';
-      this.editForm.read = [];
+      this.editForm.team = '';
+      this.editForm.planned = [];
     },
     onSubmit(evt) {
       evt.preventDefault();
       this.$refs.addTaskModal.hide();
-      let read = false;
-      if (this.addTaskForm.read[0]) read = true;
+      let planned = false;
+      if (this.addTaskForm.planned[0]) planned = true;
       const payload = {
         description: this.addTaskForm.description,
-        author: this.addTaskForm.author,
-        read, // property shorthand
+        team: this.addTaskForm.team,
+        planned, // property shorthand
       };
       this.addTask(payload);
       this.initForm();
@@ -221,12 +221,12 @@ export default {
     onSubmitUpdate(evt) {
       evt.preventDefault();
       this.$refs.editTaskModal.hide();
-      let read = false;
-      if (this.editForm.read[0]) read = true;
+      let planned = false;
+      if (this.editForm.planned[0]) planned = true;
       const payload = {
         description: this.editForm.description,
-        author: this.editForm.author,
-        read,
+        team: this.editForm.team,
+        planned,
       };
       this.updateTask(payload, this.editForm.id);
     },
