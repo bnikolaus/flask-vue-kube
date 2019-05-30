@@ -15,11 +15,10 @@ class Task(db.Model):
     team = db.Column(db.String(255), nullable=False)
     planned = db.Column(db.Boolean(), default=False, nullable=False)
 
-    def __init__(self, description, team, planned, type):
+    def __init__(self, description, team, planned):
         self.description = description
         self.team = team
         self.planned = planned
-        self.type = type
 
     def to_json(self):
         return {
@@ -27,5 +26,4 @@ class Task(db.Model):
             'description': self.description,
             'team': self.team,
             'planned': self.planned,
-            'type': self.type
         }
